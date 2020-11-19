@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+
+Route::get('login', function () {
+    return redirect()->to('/');
+})->name('login');;
+
+Route::post('login', [EmployeeController::class, 'authenticate'])->name('login');
+Route::get('logout', [EmployeeController::class, 'logout'])->name('logout');
+
+Route::get('dashboard', function () {
+    return view('dashboard');
+})->name('dashboard')->middleware('admin');
+
+// Route::resource('employees', EmployeeController::class);
