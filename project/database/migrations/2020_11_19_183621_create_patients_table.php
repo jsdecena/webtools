@@ -20,7 +20,7 @@ class CreatePatientsTable extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('gender');
-            $table->boolean('active');
+            $table->tinyInteger('active')->default(false);
             $table->timestamps();
         });
     }

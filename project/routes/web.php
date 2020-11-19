@@ -22,14 +22,14 @@ Route::get('/', function () {
 
 Route::get('login', function () {
     return redirect()->to('/');
-})->name('login');;
+})->name('login');
 
 Route::post('login', [EmployeeController::class, 'authenticate'])->name('login');
 Route::get('logout', [EmployeeController::class, 'logout'])->name('logout');
 
+Route::get('patients', [PatientController::class, 'create'])->name('patient.create');
+Route::post('patients', [PatientController::class, 'store'])->name('patient.store');
 Route::post('patients/{id}', [PatientController::class, 'update'])->name('patient.update');
 Route::get('patients/{id}/edit', [PatientController::class, 'edit'])->name('patient.edit');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
-
-// Route::resource('employees', EmployeeController::class);

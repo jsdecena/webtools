@@ -1,125 +1,72 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>Webtools Health Laravel Example Application - Login</title>
+@section('content')
+    <!-- Main content -->
+    <section class="content">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('css/fontawesome.min.css')}}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{asset('css/icheck-bootstrap.min.css')}}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
-<body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="{{asset('img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <div class="col">
+                    <h3 class="card-title">List of Patients</h3>
                 </div>
-                <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                <div class="col">
+                    <p class="fa-pull-right"><a href="{{route('patient.create')}}" class="btn btn-sm btn-primary">Create Patient</a></p>
                 </div>
             </div>
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>Patients<span class="right badge badge-danger">New</span></p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Home</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="{{route('logout')}}" class="fa-pull-right btn btn-sm btn-danger">Log Me Out</a>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-
-            <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Title</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fas fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    Start creating your amazing application!
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Footer
-                </div>
-                <!-- /.card-footer-->
+            <div class="card-body">
+                @if(session()->get('success'))
+                    <p class="alert alert-success">{{session()->get('success')}}</p>
+                @endif
+                @if($patients)
+                    <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Is Active?</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($patients as $patient)
+                        <tr>
+                            <td>{{$patient->id}}</td>
+                            <td>{{$patient->full_name}}</td>
+                            <td>{{$patient->gender}}</td>
+                            <td>
+                                @if($patient->active == 1)
+                                    <button class="btn btn-sm btn-success">Enabled</button>
+                                @else
+                                    <button class="btn btn-sm btn-danger">Disabled</button>
+                                @endif
+                            </td>
+                            <td>
+                                <p class="fa-pull-right">
+                                    <button class="btn btn-sm btn-dark">View</button>
+                                    <button class="btn btn-sm btn-info">Edit</button>
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </p>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                @else
+                    <p class="alert alert-warning">No patient created yet ...</p>
+                @endif
             </div>
-            <!-- /.card -->
+            <!-- /.card-body -->
+            <div class="card-footer">
 
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.0.5
+            </div>
+            <!-- /.card-footer-->
         </div>
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-        reserved.
-    </footer>
+        <!-- /.card -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+    </section>
+    <!-- /.content -->
+@endsection
 
-<!-- jQuery -->
-<script src="{{asset('js/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('js/adminlte.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('js/demo.js')}}"></script>
-</body>
-</html>
+

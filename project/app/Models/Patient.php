@@ -9,11 +9,23 @@ class Patient extends Model
 {
     use HasFactory;
 
-    public $fillable = [
+    const FILLABLES = [
         'first_name',
         'middle_name',
         'last_name',
         'gender',
         'active'
     ];
+
+    public $fillable = self::FILLABLES;
+
+    public function getGenderAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->middle_name} {$this->last_name}";
+    }
 }
