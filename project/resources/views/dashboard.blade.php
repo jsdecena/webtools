@@ -44,9 +44,8 @@
                             </td>
                             <td>
                                 <p class="fa-pull-right">
-                                    <button class="btn btn-sm btn-dark">View</button>
-                                    <button class="btn btn-sm btn-info">Edit</button>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                    <a href="{{route('patient.show', $patient->id)}}" class="btn btn-sm btn-dark">View</a>
+                                    <a href="{{route('patient.edit', $patient->id)}}" class="btn btn-sm btn-info">Edit</a>
                                 </p>
                             </td>
                         </tr>

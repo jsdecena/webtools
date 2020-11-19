@@ -34,4 +34,26 @@ class PatientRepository
     {
         return $this->model->paginate($perPage);
     }
+
+    /**
+     * Find the patient
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function findPatientById($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    /**
+     * Update the patient
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function updatePatient(array $data): bool
+    {
+        return $this->model->update($data);
+    }
 }

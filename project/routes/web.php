@@ -29,7 +29,8 @@ Route::get('logout', [EmployeeController::class, 'logout'])->name('logout');
 
 Route::get('patients', [PatientController::class, 'create'])->name('patient.create');
 Route::post('patients', [PatientController::class, 'store'])->name('patient.store');
-Route::post('patients/{id}', [PatientController::class, 'update'])->name('patient.update');
+Route::get('patients/{id}', [PatientController::class, 'show'])->name('patient.show');
 Route::get('patients/{id}/edit', [PatientController::class, 'edit'])->name('patient.edit');
+Route::post('patients/{id}', [PatientController::class, 'update'])->name('patient.update');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
