@@ -6,7 +6,6 @@
 
     <title>Webtools Health Laravel Example Application - Login</title>
 
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/fontawesome.min.css')}}">
     <!-- Ionicons -->
@@ -36,7 +35,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('login')}}" method="post">
+            <form action="{{route('login')}}" method="post" id="login-form">
                 {{csrf_field()}}
                 <div class="input-group mb-3">
                     <input name="email" type="email" class="form-control" placeholder="Email" value="{{old('email')}}">
@@ -80,5 +79,33 @@
 <!-- AdminLTE App -->
 <script src="{{asset('js/adminlte.min.js')}}"></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        const loginForm = '#login-form';
+        const emailField ='input[name="email"]';
+        const passwordField = 'input[name="password"]';
+        const csrf = 'input[name="_token"]';
+        $(loginForm).on('submit', function () {
+            const email = $(emailField).val();
+            const password = $(passwordField).val();
+            const _token = $(csrf).val();
+            $.ajax({
+                method: 'post',
+                url: '/login',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({ email, password, _token }),
+                success: function () {
+                    location.href = '/dashboard';
+                },
+                error: function (err) {
+                    console.log(err.data)
+                }
+            })
+            return false
+        });
+    });
+</script>
 </body>
 </html>
