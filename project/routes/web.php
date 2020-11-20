@@ -37,4 +37,5 @@ Route::middleware(['admin'])->group(function () {
     Route::get('patients/{id}/edit', [PatientController::class, 'edit'])->name('patient.edit');
     Route::get('patients/{id}/note', [NoteController::class, 'create'])->name('patient.note');
     Route::post('patients/{id}/note', [NoteController::class, 'store'])->name('patient.note.store');
+    Route::post('patients/{id}/toggle-active', [PatientController::class, 'toggleActive'])->name('patient.toggle.active');
 });

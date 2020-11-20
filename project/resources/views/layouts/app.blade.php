@@ -43,7 +43,7 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>Patients<span class="right badge badge-danger">New</span></p>
                         </a>
@@ -98,5 +98,6 @@
 <script src="{{asset('js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('js/demo.js')}}"></script>
+@yield('js')
 </body>
 </html>

@@ -79,4 +79,13 @@ class PatientRepository
     {
         return $this->model->notes;
     }
+
+    /**
+     * @param int $active
+     * @return bool
+     */
+    public function toggleActive(int $active = 1)
+    {
+        return $this->model->update(compact('active'));
+    }
 }

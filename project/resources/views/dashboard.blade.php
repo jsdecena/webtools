@@ -3,7 +3,7 @@
 @section('content')
     <!-- Main content -->
     <section class="content">
-
+        {{csrf_field()}}
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -35,14 +35,14 @@
                             <td>{{$patient->id}}</td>
                             <td><a href="{{route('patient.show', $patient->id)}}">{{$patient->full_name}}</a></td>
                             <td>{{$patient->gender}}</td>
-                            <td>
+                            <td class="toggle-btn">
                                 @if($patient->active == 1)
-                                    <button class="btn btn-sm btn-success">Enabled</button>
+                                    <button data-patient-id="{{$patient->id}}" class="btn btn-sm btn-success disable">Click to disable</button>
                                 @else
-                                    <button class="btn btn-sm btn-danger">Disabled</button>
+                                    <button data-patient-id="{{$patient->id}}" class="btn btn-sm btn-danger enable">Click to enable</button>
                                 @endif
                             </td>
-                            <td>
+                            <td class="action-btn">
                                 <p class="fa-pull-right">
                                     <a href="{{route('patient.show', $patient->id)}}" class="btn btn-sm btn-dark">View</a>
                                     <a href="{{route('patient.edit', $patient->id)}}" class="btn btn-sm btn-info">Edit</a>
@@ -67,6 +67,67 @@
 
     </section>
     <!-- /.content -->
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        function disablePatient() {
+            const disableBtn = '.disable';
+            const csrf = 'input[name="_token"]';
+            $(disableBtn).on('click', function () {
+                const that = $(this);
+                const patientId = $(this).attr('data-patient-id')
+                if (confirm('Do you want to enable this patient?')) {
+                    const _token = $(csrf).val();
+                    $.ajax({
+                        method: 'post',
+                        url: '/patients/'+ patientId +'/toggle-active',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: JSON.stringify({ active: 0, _token}),
+                        success: function () {
+                            $(that).removeClass('btn-success enable').addClass('disable btn-danger').text('Click to enable')
+                            enablePatient()
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    })
+                }
+            });
+        }
+        function enablePatient() {
+            const enableBtn = '.enable';
+            const csrf = 'input[name="_token"]';
+            $(enableBtn).on('click', function () {
+                const that = $(this);
+                const patientId = $(this).attr('data-patient-id')
+                if (confirm('Do you want to enable this patient?')) {
+                    const _token = $(csrf).val();
+                    $.ajax({
+                        method: 'post',
+                        url: '/patients/'+ patientId +'/toggle-active',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: JSON.stringify({ active: 1, _token}),
+                        success: function () {
+                            $(that).removeClass('btn-danger disable').addClass('enable btn-success').text('Click to disable')
+                            disablePatient()
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    })
+                }
+            });
+        }
+        $(document).ready(function () {
+            disablePatient()
+            enablePatient()
+        });
+    </script>
 @endsection
 
 

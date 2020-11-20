@@ -9,7 +9,9 @@ use App\Models\Patient;
 use App\Repositories\PatientRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
@@ -97,6 +99,23 @@ class PatientController extends Controller
                 'error' => 'There is a problem updating the patient. Check logs.'
             ]);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param $patientId
+     * @return JsonResponse
+     */
+    public function toggleActive(Request $request, $patientId)
+    {
+        $active = $request->input('active');
+
+        $patient = $this->patientRepository->findPatientById($patientId);
+
+        $patientRepo = new PatientRepository($patient);
+        $patientRepo->toggleActive($active);
+
+        return response()->json(['success' => 'Updated the patient successfully']);
     }
 
     /**
