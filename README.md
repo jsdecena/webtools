@@ -18,3 +18,17 @@
 
 - email: `<check employees table>`
 - password: `password`
+
+### Screenshot
+
+#### Login
+![login](https://i.imgur.com/qv9Tvth.png)
+
+#### Patients
+![login](https://i.imgur.com/O65s7P2.png)
+
+#### Patient profile
+![login](https://i.imgur.com/zfZek7c.png)
+
+#### Patient edit
+![login](https://i.imgur.com/8CWXjr2.png)
