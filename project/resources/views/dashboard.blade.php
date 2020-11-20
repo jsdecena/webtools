@@ -18,7 +18,7 @@
                 @if(session()->get('success'))
                     <p class="alert alert-success">{{session()->get('success')}}</p>
                 @endif
-                @if($patients)
+                @if(!$patients->isEmpty())
                     <table class="table table-striped">
                     <thead>
                     <tr>
@@ -33,7 +33,7 @@
                     @foreach($patients as $patient)
                         <tr>
                             <td>{{$patient->id}}</td>
-                            <td>{{$patient->full_name}}</td>
+                            <td><a href="{{route('patient.show', $patient->id)}}">{{$patient->full_name}}</a></td>
                             <td>{{$patient->gender}}</td>
                             <td>
                                 @if($patient->active == 1)
@@ -46,6 +46,7 @@
                                 <p class="fa-pull-right">
                                     <a href="{{route('patient.show', $patient->id)}}" class="btn btn-sm btn-dark">View</a>
                                     <a href="{{route('patient.edit', $patient->id)}}" class="btn btn-sm btn-info">Edit</a>
+                                    <a href="{{route('patient.note', $patient->id)}}" class="btn btn-sm btn-warning">Add Note</a>
                                 </p>
                             </td>
                         </tr>
@@ -53,7 +54,7 @@
                     </tbody>
                 </table>
                 @else
-                    <p class="alert alert-warning">No patient created yet ...</p>
+                    <p class="alert alert-warning">No patient created yet ...</p> <a href="{{route('patient.create')}}" class="btn btn-sm btn-primary">Create Patient</a>
                 @endif
             </div>
             <!-- /.card-body -->

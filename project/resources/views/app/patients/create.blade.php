@@ -48,6 +48,7 @@
                             <label class="form-check-label" for="disable">No</label>
                         </div>
                     </div>
+                    <a href="{{route('dashboard')}}" class="btn btn-sm btn-default">Back</a>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

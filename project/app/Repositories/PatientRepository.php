@@ -2,7 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\Employee;
+use App\Models\Note;
 use App\Models\Patient;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class PatientRepository
 {
@@ -55,5 +59,24 @@ class PatientRepository
     public function updatePatient(array $data): bool
     {
         return $this->model->update($data);
+    }
+
+    /**
+     * @param array $data
+     * @param Employee $employee
+     * @return Model
+     */
+    public function createNotes(array $data, Employee $employee) : Model
+    {
+        $data['employee_id'] = $employee->id;
+        return $this->model->notes()->create($data);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function listNotes(): Collection
+    {
+        return $this->model->notes;
     }
 }
