@@ -12,11 +12,13 @@
 
 - Run migration and seeder: Go to `<root>/project` and run `php artisan migrate --seed`
 
+- Copy .env.example to .env and run php artisan key:generate
+
 - Open your browser in [http://localhost:8000](http://localhost:8000)
 
 ### Login Credentials
 
-- email: `<check employees table>`
+- email: `john@doe.com`
 - password: `password`
 
 ### Screenshot
