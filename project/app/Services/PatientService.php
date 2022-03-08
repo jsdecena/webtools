@@ -32,4 +32,20 @@ class PatientService extends BaseHttpService
             return [];
         }
     }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function findPatientById($id): array
+    {
+        try {
+            $response = $this->httpClient->get("Patient/$id");
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            Log::error($e->getTraceAsString());
+            return [];
+        }
+    }
 }

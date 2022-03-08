@@ -14,4 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('patients', [PatientApiController::class, 'index'])->name('api.patients');
+Route::get('patients', [PatientApiController::class, 'index'])->name('api.patients.list');
+Route::get('patients/{id}', [PatientApiController::class, 'show'])->name('api.patients.show');
+
+// It can be used later to find the Practioner of the current patient
+// Route::get('patients/{id}/practitioner', [PractitionerPatientApiController::class, 'show'])->name('api.practitioner.patients.show');
