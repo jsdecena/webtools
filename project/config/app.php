@@ -1,7 +1,8 @@
 <?php
 
 return [
-
+    'fhir_server' => env('APP_FHIR_SERVER'),
+    'fhir_base' => 'baseR4/',
     /*
     |--------------------------------------------------------------------------
     | Application Name
